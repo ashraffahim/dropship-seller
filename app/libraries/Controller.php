@@ -4,7 +4,13 @@ namespace Libraries;
 
 class Controller {
 
-	public function view($view, $data = [], $wrap = true) {
+	public function requireLogin() {
+		if (!isset($_SESSION['uid'])) {
+			header("Location: /login");
+		}
+	}
+
+	public function view($view, $data = [], $wrap = true, $body_wrap = true) {
 
 		if (isset($_SERVER['HTTP_SEC_FETCH_MODE']) && $_SERVER['HTTP_SEC_FETCH_MODE'] == 'cors') {
 			$wrap = false;
@@ -15,11 +21,19 @@ class Controller {
 			if ($wrap) {
 			
 				include '../app/views/inc/header.php';
+				include '../app/views/inc/content-start.php';
 				require_once '../app/views/' . $view . '.php';
+				include '../app/views/inc/content-end.php';
 				include '../app/views/inc/footer.php';
 			
-			} else {
+			} elseif ($body_wrap) {
+				
+				include '../app/views/inc/content-start.php';
+				require_once '../app/views/' . $view . '.php';
+				include '../app/views/inc/content-end.php';
 			
+			} else {
+
 				require_once '../app/views/' . $view . '.php';
 			
 			}

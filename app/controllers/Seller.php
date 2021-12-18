@@ -18,6 +18,7 @@ class Seller extends Controller {
 	}
 
 	public function product($c) {
+		$this->requireLogin();
 		switch ($c) {
 			case 'add' :
 				$this->productAdd();
@@ -26,10 +27,12 @@ class Seller extends Controller {
 	}
 
 	public function productAdd() {
+		$this->requireLogin();
 		$this->view('seller/product-add');
 	}
 
 	public function productList() {
+		$this->requireLogin();
 		// Product List
 		$pl = $this->s->productList();
 		$this->view('seller/product-list', ['data' => $pl]);

@@ -1,0 +1,42 @@
+/*
+Custom css
+*/
+
+.c-grab {
+	cursor: grab;
+}
+
+.obj-fit-center {
+	object-fit: cover;
+	object-position: center;
+}
+
+.avatar-group:hover img:not(:hover) {
+	opacity: .7;
+	filter: grayscale(1);
+}
+
+tr:not(:hover) .tr-h-v {
+	visibility: hidden;
+}
+/*tr:not(:hover) .tr-h-v {
+	opacity: 0;
+}
+
+tr:hover .tr-h-v:not(:hover) {
+	opacity: .3;
+}*/
+
+[disabled] {
+	cursor: not-allowed;
+}
+
+.btn-icon.btn-xs {
+	height: 20px;
+	width: 20px;
+	font-size: 12px;
+}
+
+.form-control-xs {
+	height: 24px;
+}

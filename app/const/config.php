@@ -11,7 +11,9 @@ define('DB_NAME', 'dropship_db');
 
 //Software
 define('DS', DIRECTORY_SEPARATOR);
-define('BASEDIR', 'http://localhost/dropship/public');
+define('BASEDIR', '');
+define('DATA', '/data');
+define('DATADIR', '..'.DS.'data');
 define('SITENAME', '');
 define('APP_VERSION', '1.0.0');
 

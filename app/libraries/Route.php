@@ -10,16 +10,19 @@ class Route {
 		// Query string parsing rule
 		// /<controller>/<action>/[,args...]
 		$qs = self::removeQSVar($qs);
-		preg_match('/^([a-z]+|)(?:\/|)([a-z]+|)(?:\/|)(.*)$/i', $qs, $rgx);
-		self::$param['controller'] = $rgx[1] != '' ? $rgx[1] : 'home';
-		self::$param['action'] = $rgx[2] != '' ? $rgx[2] : 'index';
+		preg_match('/^([0-9a-z-]+|)(?:\/|)([0-9a-z-]+|)(?:\/|)(.*)$/i', $qs, $rgx);
+		self::$param['controller'] = $rgx[1];
+		self::$param['action'] = $rgx[2];
 		self::$param['args'] = $rgx[3] != '' ? explode('/', $rgx[3]) : [];
 	}
 
 	public static function dispatch() {
 		// Format controller and action
-		$controller = 'controllers\\' . self::convertToStudlyCaps(self::$param['controller']);
-		$action = self::convertToStudlyCaps(self::$param['action']);
+		$controller = self::$param['controller'] != '' ? self::$param['controller'] : 'home';
+		$controller = 'controllers\\' . self::convertToStudlyCaps($controller);
+		$action = self::$param['action'] != '' ? self::$param['action'] : 'index';
+		$action = self::convertToStudlyCaps($action);
+
 		if (class_exists($controller)) {
 			$controller_obj = new $controller();
 
@@ -27,8 +30,8 @@ class Route {
 				call_user_func_array([$controller_obj, $action], array_values(self::$param['args']));
 			}
 		} else {
-			$controller_obj = new \controllers\Product;
-			$action = 'details';
+			$controller_obj = new \controllers\Menu;
+			$action = 'brochure';
 			array_unshift(self::$param['args'], self::$param['controller'], self::$param['action']);
 			call_user_func_array([$controller_obj, $action], array_values(self::$param['args']));
 		}
