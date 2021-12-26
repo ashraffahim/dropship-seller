@@ -17,7 +17,12 @@ class _Product {
 	}
 
 	public function create($d, $f = []) {
-		$this->db->query('INSERT INTO `product` (`p_name`, `p_category`, `p_category_spec`, `p_custom_field`, `p_price`, `p_status`, `p_userstamp`, `p_timestamp`, `p_latimestamp`) VALUES (:n, :c, :cs, :cf, :p, ' . (isset($d['status']) ? 1 : 0) . ', ' . $_SESSION['uid'] . ', ' . time() . ', ' . time() . ')');
+
+		// Validate inputs
+
+		$validator = [];
+
+		$this->db->query('INSERT INTO `draft_product` (`dp_name`, `dp_category`, `dp_category_spec`, `dp_custom_field`, `dp_price`, `dp_status`, `dp_userstamp`, `dp_timestamp`, `dp_latimestamp`) VALUES (:n, :c, :cs, :cf, :p, ' . (isset($d['status']) ? 1 : 0) . ', ' . $_SESSION['uid'] . ', ' . time() . ', ' . time() . ')');
 
 		$cfs = [];
 		if (isset($d['custom_field'])) {
@@ -40,17 +45,35 @@ class _Product {
 
 		mkdir(DATADIR.DS.'product'.DS.$id);
 		
-		if (isset($f['photos']['name'])) {
-			foreach ($f['photos']['tmp_name'] as $i => $n) {
-				move_uploaded_file($n, DATADIR.DS.'product'.DS.$id.DS.$f['photos']['name'][$i]);
-			}
+		// Validate images
+		if (!isset($f['photos']['name'])) return [
+			'alrt' => [
+				't' => 'danger',
+				'b' => '<i data-feather="alert-octagon"></i><b class="ml-2">Images are required!</b> Upload atleast one image.'
+			]
+		];
+		if ($file['error'] != 0 && !preg_match('/image\/.*/', mime_content_type($file['tmp_name']))) return [
+			'alrt' => [
+				't' => 'danger',
+				'b' => '<i data-feather="alert-octagon"></i><b class="ml-2">Image files are corrupted!</b> Use different images and try again.'
+			]
+		];
+		
+		foreach ($f['photos']['tmp_name'] as $i => $n) {
+			move_uploaded_file($n, DATADIR.DS.'product'.DS.$id.DS.$f['photos']['name'][$i]);
 		}
-
 	}
 
 	public function list() {
 		$this->db->query('SELECT * FROM `product` WHERE `p_userstamp` = ' . $_SESSION['uid']);
 		return $this->db->result();
+	}
+
+	public function availability($n) {
+		$this->db->query('SELECT `id` FROM `product` WHERE `p_name` = :n');
+		$this->db->bind(':n', str_replace(' ', '-', strtoupper($n)), $this->db->PARAM_STR);
+
+		return $this->db->single();
 	}
 }
 

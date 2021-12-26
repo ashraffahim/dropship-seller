@@ -1,36 +1,14 @@
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-6 offset-3">
+		<div class="col-md-6 offset-md-3">
 			<div class="card">
 				<div class="card-body">
-					<form id="productForm" method="post" enctype="multipart/form-data" data-plugin="parsley" data-option="{}">
-						<div id="rootwizard" data-plugin="bootstrapWizard" data-option="{
-tabClass: '',
-nextSelector: '.button-next', 
-previousSelector: '.button-previous',
-onNext: function(tab, navigation, index) {
-var instance = $('#productForm').parsley();
-instance.validate();
-if(!instance.isValid()) {
-if($('#tab'+index+' .is-invalid').length) {
-return false;
-}
-}
-},
-onTabChange: function() {
-if($('#tab3:visible').length) {
-$('.button-next').hide();
-$('.button-submit').show();
-} else {
-$('.button-next').show();
-$('.button-submit').hide();
-}
-}
-}">
+					<form id="productForm" method="post" enctype="multipart/form-data">
+						<div id="wizard">
 							<ul class="nav mb-3">
 								<li class="nav-item">
-									<a class="nav-link text-center" href="#tab1" data-toggle="tab">
-										<span class="w-32 d-inline-flex align-items-center justify-content-center circle bg-light active-bg-success">1</span>
+									<a class="nav-link text-center active" href="#tab1" data-toggle="tab">
+										<span class="w-32 d-inline-flex align-items-center justify-content-center circle bg-light active-bg-primary">1</span>
 										<div class="mt-2">
 											<div class="text-muted">Basic Info</div>
 										</div>
@@ -38,17 +16,17 @@ $('.button-submit').hide();
 								</li>
 								<li class="nav-item">
 									<a class="nav-link text-center" href="#tab2" data-toggle="tab">
-										<span class="w-32 d-inline-flex align-items-center justify-content-center circle bg-light active-bg-success">2</span>
+										<span class="w-32 d-inline-flex align-items-center justify-content-center circle bg-light active-bg-primary">2</span>
 										<div class="mt-2">
-											<div class="text-muted">Photo</div>
+											<div class="text-muted">Media</div>
 										</div>
 									</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link text-center" href="#tab3" data-toggle="tab">
-										<span class="w-32 d-inline-flex align-items-center justify-content-center circle bg-light active-bg-success">3</span>
+										<span class="w-32 d-inline-flex align-items-center justify-content-center circle bg-light active-bg-primary">3</span>
 										<div class="mt-2">
-											<div class="text-muted">Review</div>
+											<div class="text-muted">Specifications</div>
 										</div>
 									</a>
 								</li>
@@ -59,15 +37,15 @@ $('.button-submit').hide();
 
 								<div class="tab-pane active" id="tab1">
 									<div class="md-form-group float-label" id="productName">
-										<input type="text" name="name" class="md-input" required value>
+										<input type="text" name="name" class="md-input" maxlength="100" required value>
 										<label for="productName">Name <code>*</code></label>
 									</div>
 									<div class="md-form-group float-label" id="productCategory">
-										<input type="text" name="category" class="md-input" required value>
+										<input type="text" name="category" class="md-input" maxlength="50" required value>
 										<label for="productCategory">Category <code>*</code></label>
 									</div>
 									<div class="md-form-group float-label" id="productPrice">
-										<input type="text" name="price" class="md-input" data-parsley-pattern="/^[0-9]+(?:\.[0-9]{1,2}|)$/" required value>
+										<input type="text" name="price" class="md-input" required value>
 										<label for="productPrice">Price <code>*</code></label>
 									</div>
 									<div id="categorySpec"></div>
@@ -88,27 +66,32 @@ $('.button-submit').hide();
 
 								<div class="tab-pane" id="tab2">
 									
-									<div class="row mb-3" data-plugin="product" data-option="{}">
-										<div class="col-12 d-flex" style="border: 2px dashed #eee;">
+									<div class="row mb-3 position-relative" data-plugin="product" data-option="{}">
+										<div class="col-12 d-flex text-muted dropzone" style="border: 2px dashed #eee;">
 											<div class="py-3 w-100">
 												<div class="row justify-content-center vsp">
 													<div class="col-12">
 														<div class="row align-items-center justify-content-center" style="min-height: 100px;">
-															<i data-feather="image"></i> Drop Images
+															<i data-feather="image"></i> <span class="ml-1 dropzone-placeholder">Select / Drag & Drop</span>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-										<input type="file" name="photos[]" class="form-control position-absolute h-100 w-100" style="opacity: 0;" onchange="previewMultipleInputImages(this, '.vsp')" accept="image/*" multiple required>
+										<input type="file" name="photos[]" class="form-control position-absolute h-100 w-100 select-file" style="opacity: 0;" onchange="previewMultipleInputImages(this, '.vsp')" accept="image/*" multiple required>
 									</div>
+								</div>
+
+								<!-- Custom Fields -->
+
+								<div class="tab-pane" id="tab3">
 									<div class="row">
 										<div class="col-12">
 											<table class="table table-theme table-sm custom-field-table">
 												<tr>
-													<th>Terms</th>
-													<th>Description</th>
-													<th></th>
+													<td class="pl-3">Terms</th>
+													<td class="pl-3">Description</th>
+													<td></th>
 												</tr>
 												<tr>
 													<td>
@@ -138,21 +121,9 @@ $('.button-submit').hide();
 									</div>
 								</div>
 
-								<!-- Review -->
-
-								<div class="tab-pane" id="tab3">
-									<div class="form-group">
-										<p>
-											<strong>Congratulations</strong>
-										</p>
-										<p>In lacinia velit sit imperdiet maecenas cursus nunc ut risus pulvinar tellus auctor nisl imperdiet natoque blandit porttitor sed consectetur purus neque odio sit sodales sem tempor, lacus mauris
-										quis lectus sit duis netus venenatis sodales nisi, ac ut ut justo blandit euismod duis malesuada ac consectetur pellentesque rhoncus amet</p>
-									</div>
-								</div>
-
 								<div class="row py-3 justify-content-end">
 									<div class="col-md-4">
-										<a href="#" class="btn btn-block btn-wave justify-content-between button-previous">
+										<a href="#" class="btn btn-block btn-wave justify-content-between button-prev">
 											<i data-feather="arrow-left"></i><span>Back</span><div></div>
 										</a>
 									</div>
@@ -160,7 +131,7 @@ $('.button-submit').hide();
 										<a href="#" class="btn btn-primary btn-wave btn-block justify-content-between button-next">
 											<div></div><span>Next</span><i data-feather="arrow-right" class="float-right"></i>
 										</a>
-										<button type="submit" class="btn btn-primary btn-wave btn-block justify-content-between button-submit" style="display: none;">
+										<button type="submit" class="btn btn-primary btn-wave btn-block mt-0 justify-content-between button-submit" style="display: none;">
 											<div></div><span>Finish</span><i data-feather="check" class="float-right"></i>
 										</button>
 									</div>

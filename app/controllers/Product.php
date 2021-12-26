@@ -14,12 +14,17 @@ class Product extends Controller {
 	}
 
 	public function add() {
+
 		$this->requireLogin();
+
+		$status = [];
 		if ($this->RMisPost()) {
 			$this->sanitizeInputPost();
-			$this->p->create($_POST, $_FILES);
+			$status = $this->p->create($_POST, $_FILES);
 		}
-		$this->view('product' . DS . 'add');
+		$this->view('product' . DS . 'add', [
+			'status' => $status
+		]);
 	}
 
 	public function index() {
