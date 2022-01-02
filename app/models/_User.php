@@ -53,7 +53,7 @@ class _User {
 	}
 
 	public function create() {
-		$this->db->query('INSERT INTO `user` (`u_first_name`, `u_last_name`, `u_email`, `u_password`, `u_phone`, `u_country`, `u_timestamp`, `u_latimestamp`) VALUES (:fn, :ln, :e, :p, :pn, :c, "' . time() . '", "' . time() . '")');
+		$this->db->query('INSERT INTO `seller` (`s_first_name`, `s_last_name`, `s_email`, `s_password`, `s_phone`, `s_country`, `s_timestamp`, `s_latimestamp`) VALUES (:fn, :ln, :e, :p, :pn, :c, "' . time() . '", "' . time() . '")');
 		$this->db->bind(':fn', $_SESSION['tmp_user_first_name'], $this->db->PARAM_STR);
 		$this->db->bind(':ln', $_SESSION['tmp_user_last_name'], $this->db->PARAM_STR);
 		$this->db->bind(':e', $_SESSION['tmp_user_email'], $this->db->PARAM_STR);
@@ -97,7 +97,7 @@ class _User {
 	}
 
 	public function login($u, $p) {
-		$this->db->query('SELECT * FROM `user` WHERE `u_email` = :e AND `u_password` = :p');
+		$this->db->query('SELECT * FROM `seller` WHERE `s_email` = :e AND `s_password` = :p');
 		$this->db->bind(':e', $u, $this->db->PARAM_STR);
 		$this->db->bind(':p', md5($p), $this->db->PARAM_STR);
 		return $this->db->single();

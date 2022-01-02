@@ -21,9 +21,9 @@ class Login extends Controller {
 			if ($lr != false) {
 				// Login & Redirect
 				$_SESSION['uid'] = $lr->id;
-				$_SESSION['ufn'] = $lr->u_first_name;
-				$_SESSION['uln'] = $lr->u_last_name;
-				$_SESSION['ue'] = $lr->r_email;
+				$_SESSION['ufn'] = $lr->s_first_name;
+				$_SESSION['uln'] = $lr->s_last_name;
+				$_SESSION['ue'] = $lr->s_email;
 				header('Location: /');
 			}
 		}

@@ -141,6 +141,18 @@
         return url == $(this).attr('href') && $(this).attr('href') !=='#';
       }).parents('li').addClass( 'active' );
 
+      $('.md-input:not(:empty)').addClass('fohv');
+      $('.md-input').focus(function() {
+        $(this).addClass('fohv');
+      });
+      $('.md-input').blur(function() {
+        if ($(this).val() == '') {
+          $(this).removeClass('fohv');
+        } else {
+          $(this).addClass('fohv');
+        }
+      });
+
     }
     
     window.sr = ScrollReveal();

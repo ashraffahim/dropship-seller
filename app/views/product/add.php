@@ -37,15 +37,31 @@
 
 								<div class="tab-pane active" id="tab1">
 									<div class="md-form-group float-label" id="productName">
-										<input type="text" name="name" class="md-input" maxlength="100" required value>
+										<input type="text" name="name" class="md-input" maxlength="100" required>
 										<label for="productName">Name <code>*</code></label>
 									</div>
+									<div class="md-form-group float-label" id="productHandle">
+										<input type="text" name="handle" class="md-input" maxlength="50" required>
+										<label for="productHandle">Handle <code>*</code></label>
+									</div>
 									<div class="md-form-group float-label" id="productCategory">
-										<input type="text" name="category" class="md-input" maxlength="50" required value>
+										<input type="text" name="category" class="md-input" maxlength="50" required>
 										<label for="productCategory">Category <code>*</code></label>
 									</div>
+									<div class="md-form-group float-label" id="productBrand">
+										<input type="text" name="brand" class="md-input" maxlength="50">
+										<label for="productBrand">Brand</label>
+									</div>
+									<div class="md-form-group float-label" id="productModel">
+										<input type="text" name="model" class="md-input" maxlength="50">
+										<label for="productModel">Model</label>
+									</div>
+									<div class="md-form-group float-label" id="productDescription">
+										<textarea name="description" class="md-input"></textarea>
+										<label for="productDescription">Description</label>
+									</div>
 									<div class="md-form-group float-label" id="productPrice">
-										<input type="text" name="price" class="md-input" required value>
+										<input type="text" name="price" class="md-input" required>
 										<label for="productPrice">Price <code>*</code></label>
 									</div>
 									<div id="categorySpec"></div>

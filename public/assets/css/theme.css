@@ -4483,7 +4483,7 @@ Size
   .float-label .md-input ~ label {
     top: 20px;
     font-size: 1em; }
-  .float-label .md-input:not([value=""]) ~ label, .float-label .md-input:valid ~ label {
+  .float-label .md-input.fohv ~ label {
     top: 0;
     font-size: 0.85em; }
   .md-input ~ label {

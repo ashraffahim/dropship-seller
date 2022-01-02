@@ -59,3 +59,11 @@ var dropzonePlaceholderText = $('.dropzone-placeholder').text();
 var dropzoneBorder = $('.dropzone').css('border');
 $('.select-file').on('dragover', function(){event.preventDefault();$('.dropzone').addClass('text-primary').css('border', '2px solid var(--primary)');$('.dropzone-placeholder').text('Drop File(s)');});
 $('.select-file').on('dragleave', function(){$('.dropzone').removeClass('text-primary').css('border', dropzoneBorder);$('.dropzone-placeholder').text(dropzonePlaceholderText);});
+
+// Product handle
+$('#productName input').on('keydown keyup', function() {
+	$('#productHandle input').val($(this).val().toLowerCase().replace(' ', '-'));
+});
+$('#productHandle input').on('keydown keyup', function() {
+	$(this).val($(this).val().toLowerCase().replace(' ', '-'));
+});
