@@ -22,7 +22,7 @@ class _Product {
 
 		$validator = [];
 
-		$this->db->query('INSERT INTO `draft_product` (`dp_name`, `dp_handle`, `dp_category`, `dp_description`, `dp_brand`, `dp_category`, `dp_category_spec`, `dp_custom_field`, `dp_price`, `dp_status`, `dp_sellerstamp`, `dp_timestamp`, `dp_latimestamp`) VALUES (:n, :h, :c, :cs, :cf, :p, ' . (isset($d['status']) ? 1 : 0) . ', ' . $_SESSION['uid'] . ', ' . time() . ', ' . time() . ')');
+		$this->db->query('INSERT INTO `draft_product` (`dp_name`, `dp_handle`, `dp_category`, `dp_description`, `dp_brand`, `dp_model`, `dp_category_spec`, `dp_custom_field`, `dp_price`, `dp_status`, `dp_sellerstamp`, `dp_timestamp`, `dp_latimestamp`) VALUES (:n, :h, :c, :d, :b, :m, :cs, :cf, :p, ' . (isset($d['status']) ? 1 : 0) . ', ' . $_SESSION['uid'] . ', ' . time() . ', ' . time() . ')');
 
 		$cfs = [];
 		if (isset($d['custom_field'])) {
