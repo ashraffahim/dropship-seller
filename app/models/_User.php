@@ -70,7 +70,6 @@ class _User {
 	}
 
 	public function sendVCode() {
-		$_SESSION['tmp_vcode_attempt'] = 0;
 		$this->setVCode();
 
 		//mail($_SESSION['tmp_user_email'], 'Menu Verification', $_SESSION['tmp_user_vcode']);
@@ -93,6 +92,7 @@ class _User {
 	}
 
 	public function setVCode() {
+		$_SESSION['tmp_vcode_attempt'] = 0;
 		$_SESSION['tmp_user_vcode'] = rand(100000,999999);
 	}
 

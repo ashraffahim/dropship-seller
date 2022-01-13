@@ -65,13 +65,19 @@
 									if (!$data['verify']) :
 									?>
 									<!-- Sign up information -->
-									<div class="md-form-group float-label">
-										<input type="text" name="first_name" class="md-input" id="signupFirstName" required value>
-										<label for="signupFirstName">First Name</label>
-									</div>
-									<div class="md-form-group float-label">
-										<input type="text" name="last_name" class="md-input" id="signupLastName" required value>
-										<label for="signupLastName">Last Name</label>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="md-form-group float-label">
+												<input type="text" name="first_name" class="md-input" id="signupFirstName" required value>
+												<label for="signupFirstName">First Name</label>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="md-form-group float-label">
+												<input type="text" name="last_name" class="md-input" id="signupLastName" required value>
+												<label for="signupLastName">Last Name</label>
+											</div>
+										</div>
 									</div>
 									<div class="md-form-group float-label">
 										<input type="email" name="email" class="md-input" id="signupEmail" required value>
@@ -82,18 +88,24 @@
 										<label for="signupPassword">Password</label>
 									</div>
 									<div class="row">
-										<div class="col-6 py-3">
-											<select name="country" class="form-control w-100" data-plugin="select2" data-option="{}" data-placeholder="Select your country">
-												<option disabled selected></option>
-												<?php
-												foreach ($data['country'] as $c => $n) {
-													echo '<option value="' . $c . '">' . $n . '</option>';
-												}
-												?>
-											</select>
-										</div>
 										<div class="col-6">
 											<div class="md-form-group float-label">
+												<select name="country" class="md-input" id="signupCountry" required>
+													<option disabled selected></option>
+													<?php
+													foreach ($data['country'] as $c => $n) {
+														echo '<option value="' . $c . '">' . $n[0] . ' - ' . $n[1] . ' - ' . $n[2] . ' - ' . $n[3] . '</option>';
+													}
+													?>
+												</select>
+												<label for="signupCountry">Country</label>
+											</div>
+										</div>
+										<div class="col-6 d-flex">
+											<div class="md-form-group">
+												<div class="md-input-prepend">+971</div>
+											</div>
+											<div class="md-form-group float-label flex">
 												<input type="text" name="phone" class="md-input" id="signupPhone" required value>
 												<label for="signupPhone">Phone</label>
 											</div>
@@ -128,7 +140,7 @@
 									<a href="/signup/clear" class="btn btn-md mb-4">Clear</a>
 									<button type="submit" class="btn btn-wave btn-md gd-primary text-white mb-4 ml-3">Sign Up</button>
 									<div>Already have an account?
-										<a href="/login" class="text-primary _600">Sign in</a>
+										<a href="/login" class="text-primary _600">Login</a>
 									</div>
 								</form>
 							</div>

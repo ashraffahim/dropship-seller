@@ -21,7 +21,7 @@
 				<div class="navbar">
 					<!-- brand -->
 					<a href="/" class="navbar-brand ">
-						<img src="/assets/img/agit-logo-c.png" alt="Al Ghaim IT" height="34">
+						<img src="<?php echo LOGO; ?>" alt="<?php echo SITENAME; ?>" height="34">
 						<!-- <img src="/assets/img/logo.png" alt="."> -->
 						<span class="hidden-folded d-inline l-s-n-1x ">Seller</span>
 					</a>

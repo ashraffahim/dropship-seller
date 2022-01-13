@@ -21,7 +21,7 @@ class Signup extends Controller {
 			$this->sanitizeInputPost();
 			if (isset($_POST['email'])) {
 				$this->u->setTmp($_POST);
-			} elseif(isset($_POST['vcode'])) {
+			} elseif (isset($_POST['vcode'])) {
 				$r = $this->u->verify($_POST);
 				header('Location: /');
 			}

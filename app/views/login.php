@@ -63,14 +63,14 @@
 									</div>
 									<!-- Signin information -->
 									<div class="md-form-group float-label">
-										<input type="email" name="email" class="md-input" id="signupEmail" required value>
-										<label for="signupEmail">Email</label>
+										<input type="email" name="email" class="md-input" id="loginEmail" required value>
+										<label for="loginEmail">Email</label>
 									</div>
 									<div class="md-form-group float-label">
-										<input type="text" name="password" class="md-input" id="signupPassword" required value>
-										<label for="signupPassword">Password</label>
+										<input type="text" name="password" class="md-input" id="loginPassword" required value>
+										<label for="loginPassword">Password</label>
 									</div>
-									<button type="submit" class="btn btn-wave btn-md gd-primary text-white mb-4 ml-3">Sign Up</button>
+									<button type="submit" class="btn btn-wave btn-md gd-primary text-white mb-4 ml-3">Login</button>
 									<div>Don't have an account?
 										<a href="/signup" class="text-primary _600">Sign up</a>
 									</div>

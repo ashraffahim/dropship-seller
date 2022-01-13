@@ -202,13 +202,14 @@ class Database {
 	}
 
 	public function wrapMail($html) {
+		$logo = LOGO;
 		$eof = <<< EOF
 		<div align="center" style="font-family: sans-serif">
 		  <div style="max-width: 500px;width: 100%;display: inline-block">
 		    <div style="background-color: #fafafa;border-radius: .25rem;border: 2px solid #ddd;padding: 2rem 0">
 		      <div style="display: flex;align-items: center;justify-content: start">
-		        <img src="https://i.imgur.com/kAz9P7V.png" style="max-width: 50px;border-radius: .25rem;margin-left: 2rem;">
-		        <span style="margin-left: 2rem;font-size: 2rem;font-weight: 900;color: #6e4e9e">metabók</span>
+		        <img src="$logo" style="height: 34px;width: 64px;border-radius: .25rem;margin-left: 2rem;">
+		        <span style="margin-left: 2rem;font-size: 2rem;font-weight: 900;color: #6e4e9e"></span>
 		      </div>
 		      <div style="margin: 2rem 0;border: .4px solid #ccc"></div>
 		      <div>
@@ -230,12 +231,13 @@ EOF;
 		$mail = new \PHPMailer\PHPMailer\PHPMailer;
 
 		$mail->isSMTP();
-		$mail->Host = 'mail.almaidanae.com';
+		$mail->Host = SMTP;
 		$mail->SMTPAuth = true;
-		$mail->Username = 'no-reply@almaidanae.com';
-		$mail->Password = 'Almaidan@2020';
 		$mail->SMTPSecure = false;
-		$mail->Port = 2525;
+		$mail->Port = SMTP_PORT;
+		$mail->Username = 'verification@alghaim.com';
+		$mail->Password = 'Alghaim2022';
+		$mail->setFrom('verification@alghaim.com', 'Verification');
 
 		if (is_array($to)) {
 			foreach ($to as $a) {
@@ -244,7 +246,6 @@ EOF;
 		} else {
 			$mail->addAddress($to);
 		}
-		$mail->setFrom('no-reply@almaidanae.com', 'No Reply');
 
 		$mail->isHTML(true);
 

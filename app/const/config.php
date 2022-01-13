@@ -14,7 +14,12 @@ define('DS', DIRECTORY_SEPARATOR);
 define('BASEDIR', '');
 define('DATA', '/data');
 define('DATADIR', '..'.DS.'data');
+define('LOGO', 'http://dropship/assets/img/agit-logo-c.png');
 define('SITENAME', '');
 define('APP_VERSION', '1.0.0');
+
+// Server
+define('SMTP', 'mail.alghaim.com');
+define('SMTP_PORT', '2525');
 
 ?>

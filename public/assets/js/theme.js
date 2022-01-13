@@ -141,7 +141,8 @@
         return url == $(this).attr('href') && $(this).attr('href') !=='#';
       }).parents('li').addClass( 'active' );
 
-      $('.md-input:not(:empty)').addClass('fohv');
+      $('.md-input:not(select):not(:empty)').addClass('fohv');
+      $('select.md-input option:selected:not(:disabled)').addClass('fohv');
       $('.md-input').focus(function() {
         $(this).addClass('fohv');
       });
