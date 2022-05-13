@@ -7,28 +7,108 @@ use models\_User;
 
 class Login extends Controller {
 
-	private $u;
+	private $user;
 
 	function __construct() {
-		$this->u = new _User();
+		$this->user = new _User();
+	}
+	
+	public function index() {
+
+		$data = [];
+
+		if ($this->RMisPost()) {
+
+			$this->sanitizeInputPost();
+			$user_id = $this->user->login($_POST['user'], md5($_POST['pass']));
+
+			if ($user_id) {
+				
+				$_SESSION[CLIENT . 'user_id'] = $user_id;
+				redir('/');
+
+			} else {
+
+				$data = [
+					'error' => 'Invalid credentials',
+					'redir' => '/login/index'
+				];
+
+			}
+		
+		}
+
+		if (!isset($_SESSION[CLIENT . 'user_id'])) {
+
+			$this->view('login', $data, false);
+		
+		} else {
+
+			redir('/home/index');
+
+		}
+
 	}
 
-	public function index()	{
-		$lr = [];
+	public function availability() {
+
 		if ($this->RMisPost()) {
+
 			$this->sanitizeInputPost();
-			$lr = $this->u->login($_POST['email'], $_POST['password']);
-			if ($lr != false) {
-				// Login & Redirect
-				$_SESSION['uid'] = $lr->id;
-				$_SESSION['ufn'] = $lr->s_first_name;
-				$_SESSION['uln'] = $lr->s_last_name;
-				$_SESSION['ue'] = $lr->s_email;
-				header('Location: /');
+			$data = $this->user->availability($_POST);
+
+			if (isset($data->exists)) {
+				$this->status(['status' => 1]);
+			} else {
+				$this->status(['status' => 0]);
 			}
+
 		}
-		$this->view('login', ['status' => $lr], false, false);
+
 	}
+
+	public function signup() {
+
+		if ($this->RMisPost()) {
+
+			$this->sanitizeInputPost();
+			if (isset($_POST['email'])) {
+				$status = $this->user->setTemp($_POST);
+			} elseif (isset($_POST['vcode'])) {
+				$status = $this->user->verify($_POST);
+				// $this->status($status);
+			}
+
+
+			if ($status['success']) {
+				$user_id = $this->user->login($_SESSION['tmp_email'], md5($_SESSION['tmp_password']));
+				if ($user_id) {
+					
+					$_SESSION[CLIENT . 'user_id'] = $user_id;
+					$this->user->clearTmp();
+					redir('/');
+
+				}
+			}
+
+			$this->view('login', ['status' => $status], false);
+			
+		} else {
+			$this->view('login', [], false);
+		}
+
+	}
+
+	public function clearTmp() {
+		$this->user->clearTmp();
+		redir('/login/index');
+	}
+
+	public function logout() {
+		session_destroy();
+		redir('/login/index');
+	}
+
 }
 
 ?>

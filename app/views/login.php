@@ -1,107 +1,175 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<title>Signup | Basik - Bootstrap 4 Web Application</title>
-		<meta name="description" content="Responsive, Bootstrap, BS4" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-		<!-- style -->
-		<!-- build:css /assets/css/site.min.css -->
-		<link rel="stylesheet" href="/assets/css/bootstrap.css" type="text/css" />
-		<link rel="stylesheet" href="/assets/css/theme.css" type="text/css" />
-		<link rel="stylesheet" href="/assets/css/style.css" type="text/css" />
-		<!-- endbuild -->
-	</head>
-	<body class="layout-row">
-		<div class="d-flex flex-column flex">
-			<div class="row no-gutters h-100">
-				<div class="col-md-6 bg-primary" style="">
-					<div class="p-3 p-md-5 d-flex flex-column h-100">
-						<h4 class="mb-3 text-white">Basik</h4>
-						<div class="text-fade">Bootstrap 4 Web Application</div>
-						<div class="d-flex flex align-items-center justify-content-center">
-						</div>
-						<div class="d-flex text-sm text-fade">
-							<a href="index.html" class="text-white">About</a>
-							<span class="flex"></span>
-							<a href="#" class="text-white mx-1">Terms</a>
-							<a href="#" class="text-white mx-1">Policy</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div id="content-body">
-						<div class="p-3 p-md-5">
-							<h5>Welcome to Basik</h5>
-							<p>
-								<small class="text-muted">Sign up with your social network</small>
-							</p>
-							<div class="">
-								<form method="post">
-									<!-- Sign up with socual network -->
-									<div>
-										<a href="#" class="btn btn-outline-primary btn-block btn-rounded mb-3">
-											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 264 512">
-												<path fill="currentColor" d="M76.7 512V283H0v-91h76.7v-71.7C76.7 42.4 124.3 0 193.8 0c33.3 0 61.9 2.5 70.2 3.6V85h-48.2c-37.8 0-45.1 18-45.1 44.3V192H256l-11.7 91h-73.6v229" class=""></path>
-											</svg>
-											<span>
-												 Facebook
-											</span>
-										</a>
-										<a href="#" class="btn btn-outline-dark btn-block btn-rounded">
-											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 640 512">
-												<path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z" class=""></path>
-											</svg>
-											<span>
-												 Google
-											</span>
-										</a>
-									</div>
-									<!-- End sign up with social network -->
-									<div class="my-3 text-muted text-sm text-muted">
-										OR
-									</div>
-									<!-- Signin information -->
-									<div class="md-form-group float-label">
-										<input type="email" name="email" class="md-input" id="loginEmail" required value>
-										<label for="loginEmail">Email</label>
-									</div>
-									<div class="md-form-group float-label">
-										<input type="text" name="password" class="md-input" id="loginPassword" required value>
-										<label for="loginPassword">Password</label>
-									</div>
-									<button type="submit" class="btn btn-wave btn-md gd-primary text-white mb-4 ml-3">Login</button>
-									<div>Don't have an account?
-										<a href="/signup" class="text-primary _600">Sign up</a>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
+<html class="no-js" lang="en">
+<head>
+	<title>Dopamine</title>
+	<meta http-equiv="x-ua-compatible" content="ie=edge" />
+	<meta name="viewport" content="ie=edge" />
+
+	<link rel="stylesheet" href="/fontawesome/css/all.css">
+	<link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/dopamine/css/style.css">
+
+	<script src="/jquery/dist/jquery.min.js"></script>
+	<script src="/bootstrap/dist/js/popper.min.js"></script>
+	<script src="/tether/dist/js/tether.min.js"></script>
+	<script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="/dopamine/js/script.js"></script>
+</head>
+<body>
+
+	<!--<div class="nav">
+		<div class="navbar-default"></div>
+	</div>-->
+
+	<div class="login-sidenav">
+		<div class="login-main-text text-light">
+			<div><img src='/dopamine/images/dopamine.png' class="invert"></div>
+			<h2><span>Dopamine</span></h2>
+			<hr>
+			<span class="lead">Greetings!</span>
+			<p class="font-weight-light">Get your complete financial picture at a glance. With Dopamine, you can view your banking, investment, retirement, and credit card accounts - all in one place.</p>
+			
+			<div class="d-flex align-tems-center justify-content-center my-5">
+				<button class="d-inline-flex align-tems-center justify-content-center btn-theme rounded-circle p-2 mx-2" tabindex="-1" data-id="#co1">
+					<span class="d-inline-flex align-tems-center justify-content-center btn-theme-dark rounded-circle p-3">
+						<i class="fa fa-boxes"></i>
+					</span>
+				</button>
+				<button class="d-inline-flex align-tems-center justify-content-center btn-theme rounded-circle p-2 mx-2" tabindex="-1" data-id="#co2">
+					<span class="d-inline-flex align-tems-center justify-content-center btn-theme-dark rounded-circle p-3">
+						<i class="fa fa-coins"></i>
+					</span>
+				</button>
+				<button class="d-inline-flex align-tems-center justify-content-center btn-theme rounded-circle p-2 mx-2" tabindex="-1" data-id="#co3">
+					<span class="d-inline-flex align-tems-center justify-content-center btn-theme-dark rounded-circle p-3">
+						<i class="fa fa-chart-line"></i>
+					</span>
+				</button>
+				<button class="d-inline-flex align-tems-center justify-content-center btn-theme rounded-circle p-2 mx-2" tabindex="-1" data-id="#co4">
+					<span class="d-inline-flex align-tems-center justify-content-center btn-theme-dark rounded-circle p-3">
+						<i class="fa fa-cogs"></i>
+					</span>
+				</button>
+			</div>
+
+			<div class="text-center">
+			<h3 class="font-weight-light card-option" id="co1">Manage your inventories</h3>
+			<h3 class="font-weight-light card-option" id="co2">Manage your finances</h3>
+			<h3 class="font-weight-light card-option" id="co3">Assess your business's performance</h3>
+			<h3 class="font-weight-light card-option" id="co4">Personalize your interface</h3>
 			</div>
 		</div>
-		<!-- build:js /assets/js/site.min.js -->
-		<!-- jQuery -->
-		<script src="/libs/jquery/dist/jquery.min.js"></script>
-		<!-- Bootstrap -->
-		<script src="/libs/popper.js/dist/umd/popper.min.js"></script>
-		<script src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-		<!-- ajax page -->
-		<script src="/libs/pjax/pjax.min.js"></script>
-		<script src="/assets/js/ajax.js"></script>
-		<!-- lazyload plugin -->
-		<script src="/assets/js/lazyload.config.js"></script>
-		<script src="/assets/js/lazyload.js"></script>
-		<script src="/assets/js/plugin.js"></script>
-		<!-- scrollreveal -->
-		<script src="/libs/scrollreveal/dist/scrollreveal.min.js"></script>
-		<!-- feathericon -->
-		<script src="/libs/feather-icons/dist/feather.min.js"></script>
-		<script src="/assets/js/plugins/feathericon.js"></script>
-		<!-- theme -->
-		<script src="/assets/js/theme.js"></script>
-		<script src="/assets/js/utils.js"></script>
-		<!-- endbuild -->
-	</body>
+	</div>
+	<div class="login-main my-5">
+		<div class="col-md-6 col-sm-12">
+			<div class="login-form">
+
+				<?php if (!isset($_SESSION['tmp_vcode'])) : ?>
+
+				<form method="post" action="/login/index" class="collapse show form">
+						<?php if (isset($data['error'])) : ?>
+					<div id="loginTag" class="card-tag card-tag-danger collapse show">
+							<i class="fa fa-exclamation-triangle text-danger fa-2x mr-2"></i>
+							<span class="h5 text-danger">
+								<?php echo $data['error']; ?>
+							</span>
+							<hr>
+						<?php else : ?>
+					<button type="button" class="btn btn-xs float-right" data-toggle="collapse" data-target="#loginTag"><i class="fa fa-question-circle"></i> Help</button>
+					<div id="loginTag" class="card-tag card-tag-info collapse">
+						<?php endif; ?>
+						If you donot have an anccount, <a href="#" data-toggle="collapse" data-target=".form" >signup here</a> and wait for approval
+						<br>
+						<a href="#">Forgot password?</a>
+					</div>
+					<div class="form-group">
+						<input type="text" class="username" name="user" placeholder="Username" autofocus="true">
+					</div>
+					<div class="form-group">
+						<input type="password" class="password" name="pass" placeholder="Password">
+					</div>
+					<div class="row p-3">
+						<button type="button" data-toggle="collapse" data-target=".form" class="btn btn-light col">Sign up</button>
+						<button type="submit" class="btn btn-theme-dark col ml-1">Login</button>
+					</div>
+				</form>
+
+				<form method="post" action="/login/signup" id="signup-form" class="collapse form silent">
+					<div class="form-group row">
+						<input type="text" class="form-control col-md ml-md-3 mr-md-1 mx-3" name="first_name" placeholder="First name" required>
+						<input type="text" class="form-control col-md mr-md-3 mx-3 mt-md-0 mt-3" name="last_name" placeholder="Last name" required>
+					</div>
+					<div class="form-group">
+						<input type="email" class="form-control" name="email" id="email" placeholder="Email" aria-describedby="email-help" required>
+						<small id="email-help" class="form-text">This will be used to cantact you</small>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="password" placeholder="Password" required>
+					</div>
+					<div class="row p-3">
+						<button type="button" data-toggle="collapse" data-target=".form" class="btn btn-light col">Login</button>
+						<button type="submit" class="btn btn-theme col ml-1">Sign up</button>
+					</div>
+				</form>
+
+				<?php else : ?>
+				<form method="post" action="/login/signup" class="form">
+					<?php if (isset($data['status']['card-tag'])) : ?>
+					<div class="card-tag card-tag-<?php echo $data['status']['card-tag']['type']; ?>">
+						<?php echo $data['status']['card-tag']['body']; ?>
+					</div>
+					<?php endif; ?>
+					<div class="form-group">
+						<input type="text" class="form-control" name="vcode" placeholder="Verification Code" required>
+					</div>
+					<div class="row p-3">
+						<a href="/login/clear-tmp" class="btn btn-light col">Clear</a>
+						<button type="submit" class="btn btn-theme col ml-1">Verify</button>
+					</div>
+				</form>
+				<?php endif; ?>
+
+			</div>
+		</div>
+	</div>
+	<div class="toasts fixed-bottom pl-3 pb-3"></div>
+</body>
+<script>
+
+	var id;
+
+	$(function(){
+		$(document.documentElement).removeClass('dark');
+	});
+
+	if(window.innerWidth > 768){
+		$('.login-sidenav').height(window.innerHeight);
+	}
+
+	$('.card-option:not(#co1)').hide();
+	$('button[data-id]').mouseover(function() {
+		if(id != $(this).data('id')) {
+			id = $(this).data('id');
+			$('.card-option:visible').fadeOut(300, function() {
+				$(id).fadeIn(300);
+			});
+		}
+	});
+
+	$('#email').keyup(function(){
+		$.post('/login/availability', 'email=' + $('#email').val(), function(data) {
+			data = JSON.parse(data);
+			if(data.status || $('#email').val() == '') {
+				$('#signup-form').submit(function() { event.preventDefault(); });
+				$("#email").removeClass('is-valid').addClass('is-invalid');
+				$('#email-help').removeClass('valid-feedback').addClass('invalid-feedback').text('Email is taken');
+			} else {
+				$('#signup-form').unbind('submit');
+				$("#email").removeClass('is-invalid').addClass('is-valid');
+				$('#email-help').removeClass('invalid-feedback').addClass('valid-feedback').text('Email is valid');
+			}
+		});
+	});
+
+</script>
 </html>

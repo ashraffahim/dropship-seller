@@ -3,19 +3,12 @@
 namespace controllers;
 
 use libraries\Controller;
-use models\_Home;
 
 class Home extends Controller {
+	public function index() {
 
-	private $h;
+		$this->view('home', []);
 
-	function __construct() {
-		$this->h = new _Home();
-	}
-
-	public function index()	{
-		$this->h->feed();
-		$this->view('home'.DS.'feed');
 	}
 }
 

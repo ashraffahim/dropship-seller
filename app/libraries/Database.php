@@ -66,7 +66,7 @@ class Database {
 	}
 
 	public function columnNames($table) {
-		$this->statement = $this->pdo->prepare('SELECT *, COUNT(0) `_CN` FROM `' . $table . '` WHERE 0 = 1');
+		$this->statement = $this->pdo->prepare('SELECT *, COUNT(0) `_CN` FROM ' . $table . ' WHERE 0 = 1');
 		$this->statement->execute();
 		$columnNames = $this->statement->fetch(PDO::FETCH_OBJ);
 		unset($columnNames->_CN);
@@ -84,8 +84,8 @@ class Database {
 		return $this->statement->fetch(PDO::FETCH_OBJ);
 	}
 
-	public function execute($arr = null) {
-		return $this->statement->execute($arr);
+	public function execute() {
+		$this->statement->execute();
 	}
 
 	public function rowCount() {
@@ -117,7 +117,7 @@ class Database {
 
 		if ($exec) {
 			
-			$this->statement = $this->pdo->prepare('SELECT * FROM `'.$this->storeTable.'` WHERE `id` = :id');
+			$this->statement = $this->pdo->prepare('SELECT * FROM '.$this->storeTable.' WHERE `id` = :id');
 			$this->statement->bindParam(':id', $id, PDO::PARAM_INT);
 			$this->statement->execute();
 			$this->properties = $this->statement->fetch(PDO::FETCH_OBJ);
@@ -139,10 +139,10 @@ class Database {
 			$columns = '';
 			$values = '';
 
-			$columns = '`' . implode('`, `', array_keys((array) $beans)) . '`';
+			$columns = '' . implode(', ', array_keys((array) $beans)) . '';
 			$values = ':' . implode(', :', array_keys((array) $beans));
 
-			$this->query('INSERT INTO `'. $this->storeTable .'` ('. $columns .') VALUES ('. $values .')');
+			$this->query('INSERT INTO '. $this->storeTable .' ('. $columns .') VALUES ('. $values .')');
 
 			foreach ((array) $beans as $c => $v) {
 				$this->bind(':'.$c, $v);
@@ -156,12 +156,12 @@ class Database {
 
 			$sets = implode(', ', array_map(
 				function($c) {
-					return '`'.$c.'` = :'.$c;
+					return ''.$c.' = :'.$c;
 				},
 				array_keys((array) $beans)
 			));
 
-			$this->query('UPDATE `'. $this->storeTable .'` SET '. $sets .' WHERE `id` = :id');
+			$this->query('UPDATE '. $this->storeTable .' SET '. $sets .' WHERE `id` = :id');
 
 			foreach ((array) $beans as $c => $v) {
 				$this->bind(':'.$c, $v);
@@ -190,14 +190,12 @@ class Database {
 			imagejpeg($imageTmp, $outputImage, $quality);
 			imagedestroy($imageTmp);
 			unlink($originalImage);
+		} else {
+			move_uploaded_file($originalImage, $outputImage);
 		}
 	}
 
-	public function createTableRowLimit($page) {
-		return ($page * ROW_LIMIT) . ', ' . ROW_LIMIT;
-	}
-
-	public function createViewFromSQL($sql) {
+	public function view($sql) {
 		return file_get_contents('../app/models/views/' . $sql . '.sql');
 	}
 
@@ -222,7 +220,7 @@ EOF;
 		return $eof;
 	}
 
-	public function mail($to, $subject, $html, $text, $wrap = true) {
+	public function mail($to, $subject, $html, $text, $wrap = true, $from = false) {
 
 		require 'PHPMailer/src/PHPMailer.php';
 		require 'PHPMailer/src/Exception.php';
@@ -235,9 +233,16 @@ EOF;
 		$mail->SMTPAuth = true;
 		$mail->SMTPSecure = false;
 		$mail->Port = SMTP_PORT;
-		$mail->Username = 'verification@alghaim.com';
-		$mail->Password = 'Alghaim2022';
-		$mail->setFrom('verification@alghaim.com', 'Verification');
+
+		if (is_array($from)) {
+			$mail->Username = $from['username'];
+			$mail->Password = $from['password'];
+			$mail->setFrom($from['username'], $from['name']);
+		} else {
+			$mail->Username = 'verification@alghaim.com';
+			$mail->Password = 'Alghaim2022';
+			$mail->setFrom('verification@alghaim.com', 'Verification');
+		}
 
 		if (is_array($to)) {
 			foreach ($to as $a) {

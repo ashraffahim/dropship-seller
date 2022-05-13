@@ -4,57 +4,73 @@ namespace libraries;
 
 class Route {
 
-	private static $param;
+	protected $params;
 
-	public static function parseQS($qs) : void {
+	public function parseQueryString($qs) : void {
 		// Query string parsing rule
 		// /<controller>/<action>/[,args...]
-		$qs = self::removeQSVar($qs);
 		preg_match('/^([0-9a-z-]+|)(?:\/|)([0-9a-z-]+|)(?:\/|)(.*)$/i', $qs, $rgx);
-		self::$param['controller'] = $rgx[1];
-		self::$param['action'] = $rgx[2];
-		self::$param['args'] = $rgx[3] != '' ? explode('/', $rgx[3]) : [];
+		$this->params['controller'] = $rgx[1];
+		$this->params['action'] = $rgx[2];
+		$this->params['args'] = $rgx[3] != '' ? explode('/', $rgx[3]) : [];
 	}
 
-	public static function dispatch() {
-		// Format controller and action
-		$controller = self::$param['controller'] != '' ? self::$param['controller'] : 'home';
-		$controller = 'controllers\\' . self::convertToStudlyCaps($controller);
-		$action = self::$param['action'] != '' ? self::$param['action'] : 'index';
-		$action = self::convertToStudlyCaps($action);
+	public function dispatch($query_string) {
+		$url = $this->removeQueryStringVariables($query_string);
+		$this->parseQueryString($url);
+		
+		$controller = $this->params['controller'] != '' ? $this->params['controller'] : 'home';
+		$controller = $this->convertToStudlyCaps($controller);
+		$controller = 'controllers\\' . $controller;
+		unset($this->params['controller']);
+
+		$action = $this->params['action'] != '' ? $this->params['action'] : 'index';
+		$action = $this->convertToCamelCaps($action);
+		unset($this->params['action']);
 
 		if (class_exists($controller)) {
-			$controller_obj = new $controller();
 
-			if (is_callable([$controller_obj, $action])) {
-				call_user_func_array([$controller_obj, $action], array_values(self::$param['args']));
+			if (isset($_SESSION[CLIENT . 'user_id']) || $controller == 'controllers\\Login') {
+
+					$controller_object = new $controller();
+
+					if (is_callable([$controller_object, $action])) {
+						$arg = $this->params ? array_values($this->params['args']) : [];
+						call_user_func_array([$controller_object, $action], $arg);
+					}
+
+			} else {
+				redir("/login/index");
 			}
+
 		} else {
-			$controller_obj = new \controllers\Menu;
-			$action = 'brochure';
-			array_unshift(self::$param['args'], self::$param['controller'], self::$param['action']);
-			call_user_func_array([$controller_obj, $action], array_values(self::$param['args']));
+			redir("/error/ir");
 		}
+
 	}
 
-	private static function convertToStudlyCaps($str) {
-		return str_replace(' ', '', ucwords(str_replace('-', ' ', $str)));
+	public function convertToStudlyCaps($string) {
+		return str_replace(' ', '', ucwords(str_replace('-', ' ', $string)));
 	}
 
-	private static function convertToCamelCaps($str) {
-		return lcfirst($this->convertToStudlyCaps($str));
+	public function convertToCamelCaps($string) {
+		return lcfirst($this->convertToStudlyCaps($string));
 	}
 
-	private static function removeQSVar($qs) {
-		$parts = explode('&', $qs);
+	public function removeQueryStringVariables($url) {
+		$parts = explode('&', $url);
+
 		if (isset($parts[0])) {
 			if (strpos($parts[0], '=') === false) {
-				return $parts[0];
+				$url = $parts[0];
 			} else {
-				return '';
+				$url = '';
 			}
 		}
+
+		return $url;
 	}
+
 }
 
 ?>

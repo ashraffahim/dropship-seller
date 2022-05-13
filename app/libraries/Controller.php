@@ -4,15 +4,9 @@ namespace libraries;
 
 class Controller {
 
-	public function requireLogin() {
-		if (!isset($_SESSION['uid'])) {
-			header("Location: /login");
-		}
-	}
+	public function view($view, $data = [], $wrap = true) {
 
-	public function view($view, $data = [], $wrap = true, $body_wrap = true) {
-
-		if (isset($_SERVER['HTTP_SEC_FETCH_MODE']) && $_SERVER['HTTP_SEC_FETCH_MODE'] == 'cors') {
+		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
 			$wrap = false;
 		}
 
@@ -21,19 +15,11 @@ class Controller {
 			if ($wrap) {
 			
 				include '../app/views/inc/header.php';
-				include '../app/views/inc/content-start.php';
 				require_once '../app/views/' . $view . '.php';
-				include '../app/views/inc/content-end.php';
 				include '../app/views/inc/footer.php';
 			
-			} elseif ($body_wrap) {
-				
-				include '../app/views/inc/content-start.php';
-				require_once '../app/views/' . $view . '.php';
-				include '../app/views/inc/content-end.php';
-			
 			} else {
-
+			
 				require_once '../app/views/' . $view . '.php';
 			
 			}
@@ -41,22 +27,23 @@ class Controller {
 		} else {
 
 			if ($view != '') {
-				header('Location: ' . BASEDIR);
+				redir('/Error/ie');
 			}
 
 		}
 
 	}
 
-	public function status($data = [], $ajax = false) {
+	public function status($data = []) {
+		$ajax = false;
 
-		if (isset($_SERVER['HTTP_SEC_FETCH_MODE']) && $_SERVER['HTTP_SEC_FETCH_MODE'] == 'cors') {
+		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
 			$ajax = true;
 		}
 
 		if ($ajax) {
 
-			require_once '../app/views/api/json.php';
+			require_once '../app/views/status/json.php';
 			exit;
 		
 		}
@@ -71,8 +58,12 @@ class Controller {
 		endif;
 	}
 
-	public function get($in, $def = false) {
-		return isset($_GET[$in]) ? $_GET[$in] : $def;
+	public function get($index) {
+		return isset($_GET[$index]) ? $_GET[$index] : false;
+	}
+
+	public function isPageChange() {
+		return isset($_GET['page']);
 	}
 
 	public function sanitizeInputPost() {
@@ -81,6 +72,14 @@ class Controller {
 
 	public function sanitizeInputGet() {
 		$_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
+	}
+
+	public function getLoadPage() {
+		return isset($_GET['page']) ? $_GET['page'] : 0;
+	}
+
+	public function getTableRowOrder() {
+		return isset($_GET['ord']) ? $_GET['ord'] : 1;
 	}
 
 }

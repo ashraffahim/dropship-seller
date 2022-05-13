@@ -1,9 +1,8 @@
 <?php
 
 spl_autoload_register(function($class) {
-	$path = '..'.DS.'app'.DS . str_replace('\\', DS, $class) . '.php';
-	if (file_exists($path)) {
-		include $path;
+	if(file_exists('../app/'.str_replace('\\', '/', $class).'.php')) {
+		require '../app/'.str_replace('\\', '/', $class).'.php';
 	}
 });
 
