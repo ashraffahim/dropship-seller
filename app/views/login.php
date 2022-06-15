@@ -100,11 +100,36 @@
 						<input type="text" class="form-control col-md mr-md-3 mx-3 mt-md-0 mt-3" name="last_name" placeholder="Last name" required>
 					</div>
 					<div class="form-group">
+						<div class="input-group">
+							<select name="country" class="custom-select col-8" required>
+								<option disabled selected>Select Country</option>
+								<?php
+								foreach ($data['co'] as $c) {
+								?>
+								<option value="<?php echo $c->code; ?>"><?php echo $c->name; ?></option>
+								<?php
+								}
+								?>
+							</select>
+							<select name="currency" class="custom-select col-4" required>
+								<option disabled selected>Select Currency</option>
+								<?php
+								foreach ($data['cr'] as $c) {
+								?>
+								<option value="<?php echo $c->currency; ?>"><?php echo $c->currency . ' (' . $c->currency_symbol . ')'; ?></option>
+								<?php
+								}
+								?>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
 						<input type="email" class="form-control" name="email" id="email" placeholder="Email" aria-describedby="email-help" required>
 						<small id="email-help" class="form-text">This will be used to cantact you</small>
 					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="password" placeholder="Password" required>
+					<div class="form-group row">
+						<input type="password" class="form-control col-md ml-md-3 mr-md-1 mx-3" name="password" placeholder="Password" required>
+						<input type="password" class="form-control col-md mr-md-3 mx-3 mt-md-0 mt-3" name="confirm_password" placeholder="Confirm" required>
 					</div>
 					<div class="row p-3">
 						<button type="button" data-toggle="collapse" data-target=".form" class="btn btn-light col">Login</button>

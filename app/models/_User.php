@@ -34,6 +34,8 @@ class _User {
 			$_SESSION['tmp_first_name'] = $data['first_name'];
 			$_SESSION['tmp_last_name'] = $data['last_name'];
 			$_SESSION['tmp_email'] = $data['email'];
+			$_SESSION['tmp_country'] = $data['country'];
+			$_SESSION['tmp_currency'] = $data['currency'];
 			$_SESSION['tmp_password'] = $data['password'];
 			$this->sendVCode();
 		}
@@ -87,6 +89,8 @@ class _User {
 		unset($_SESSION['tmp_first_name']);
 		unset($_SESSION['tmp_last_name']);
 		unset($_SESSION['tmp_email']);
+		unset($_SESSION['tmp_country']);
+		unset($_SESSION['tmp_currency']);
 		unset($_SESSION['tmp_password']);
 		unset($_SESSION['tmp_vcode']);
 		unset($_SESSION['tmp_vcode_attempt']);
@@ -105,11 +109,13 @@ class _User {
 		}
 
 
-		$this->db->query('INSERT INTO `seller` (`s_first_name`, `s_last_name`, `s_password`, `s_email`, `s_status`, `s_timestamp`, `s_latimestamp`) VALUES (:first_name, :last_name, :password, :email, 1, "' . time() . '", "' . time() . '")');
+		$this->db->query('INSERT INTO `seller` (`s_first_name`, `s_last_name`, `s_password`, `s_email`,  `s_country`,  `s_currency`, `s_status`, `s_timestamp`, `s_latimestamp`) VALUES (:first_name, :last_name, :password, :email, :co, :cr, 1, "' . time() . '", "' . time() . '")');
 		$this->db->bind(':first_name', $_SESSION['tmp_first_name'], $this->db->PARAM_STR);
 		$this->db->bind(':last_name', $_SESSION['tmp_last_name'], $this->db->PARAM_STR);
 		$this->db->bind(':password', md5($_SESSION['tmp_password']), $this->db->PARAM_STR);
 		$this->db->bind(':email', $_SESSION['tmp_email'], $this->db->PARAM_STR);
+		$this->db->bind(':co', $_SESSION['tmp_country'], $this->db->PARAM_STR);
+		$this->db->bind(':cr', $_SESSION['tmp_currency'], $this->db->PARAM_STR);
 
 		$this->db->execute();
 

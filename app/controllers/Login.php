@@ -4,6 +4,7 @@ namespace controllers;
 
 use libraries\Controller;
 use models\_User;
+use models\_Country;
 
 class Login extends Controller {
 
@@ -15,7 +16,12 @@ class Login extends Controller {
 	
 	public function index() {
 
-		$data = [];
+		$c = new _Country();
+
+		$data = [
+			'co' => $c->codeName(),
+			'cr' => $c->currencySymbol()
+		];
 
 		if ($this->RMisPost()) {
 
@@ -31,7 +37,9 @@ class Login extends Controller {
 
 				$data = [
 					'error' => 'Invalid credentials',
-					'redir' => '/login/index'
+					'redir' => '/login/index',
+					'co' => $c->codeName(),
+					'cr' => $c->currencySymbol()
 				];
 
 			}
