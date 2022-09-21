@@ -130,7 +130,7 @@ class _User {
 	}
 
 	public function profile($id) {
-		$this->db->query('SELECT * FROM (' . $this->db->view('user') . ') `seller` WHERE `id` = :id');
+		$this->db->query('SELECT * FROM `seller` WHERE `id` = :id');
 		$this->db->bind(':id', $id, $this->db->PARAM_INT);
 		return $this->db->single();
 	}

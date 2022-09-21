@@ -2,8 +2,8 @@
 	<div class="card-img-top position-relative">
 		<div class="profile position-absolute d-flex h-100 w-100 align-items-center justify-content-center">
 			<?php
-			$dp = DATA . '/operator/' . $_SESSION[CLIENT . 'user_id']->id . '.jpg';
-			if(file_exists(DATADIR . DS . 'operator' . DS . $_SESSION[CLIENT . 'user_id']->id . '.jpg')) {
+			$dp = DATA . '/seller/' . $_SESSION[CLIENT . 'user_id']->id . '.jpg';
+			if(file_exists(DATADIR . DS . 'seller' . DS . $_SESSION[CLIENT . 'user_id']->id . '.jpg')) {
 				echo '<a href="/user/profile" data-toggle="load-host" data-target="#content"><span class="profile-image rounded-circle shadow"><img src="' . $dp . '"></span></a>';
 			} else {
 				echo '<a href="/user/profile" data-toggle="load-host" data-target="#content"><span class="d-inline-flex align-items-center justify-content-center bg-light text-muted h5 rounded-circle shadow m-0" style="height: 65px; width: 65px">'
@@ -11,7 +11,7 @@
 			}
 			?>
 			<div class="profile-description d-inline-flex flex-column text-nowrap text-dark w-50 ml-2 px-2">
-				<a href="/User/profile" data-toggle="load-host" data-target="#content">
+				<a href="/user/profile" data-toggle="load-host" data-target="#content">
 					<span class="font-weight-bold text-light"><?php echo $_SESSION[CLIENT . 'user_id']->name; ?></span>
 				</a>
 			</div>

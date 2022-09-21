@@ -49,7 +49,7 @@ class Error extends Controller {
 			]
 		];
 		
-		$this->status($errors[explode('&', $_SERVER['QUERY_STRING'])[0]]);
+		$this->status($errors[strtolower(explode('&', $_SERVER['QUERY_STRING'])[0])]);
 		$this->view(strtolower($_SERVER['QUERY_STRING']), [], false);
 	}
 

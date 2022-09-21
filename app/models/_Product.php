@@ -64,9 +64,13 @@ class _Product {
 
 		if ($_FILES['images']['tmp_name'][0] != '') {
 			foreach($_FILES['images']['tmp_name'] as $j => $ftnm) {
-				move_uploaded_file($ftnm, DATADIR . DS . 'draft-new-product' . DS . $insid . DS . $j . '.' . pathinfo($_FILES['images']['name'][$j])['extension']);
+				$this->db->convertImageToJPG($ftnm, DATADIR . DS . 'draft-new-product' . DS . $insid . DS . $j . '.jpg', 75);
 			}
 		}
+
+		// Update number of images provided for the product
+		$this->db->query('UPDATE `draft_new_product` SET `dp_image` = ' . $j . ' WHERE `id` = ' . $insid);
+		$this->db->execute();
 
 		return [
 			'status' => true

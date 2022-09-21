@@ -17,40 +17,6 @@ class User extends Controller {
 		$this->view('user/add');
 	}
 
-	public function approve($status) {
-		if ($this->RMisPost()) {
-			$this->sanitizeInputPost();
-			$status = $this->user->approve($_POST, $status);
-			$this->status($status);
-		}
-		$data = $this->user->waitingApproval($status);
-		$this->view('user/approve', ['data' => $data, 'status' => $status]);
-	}
-
-	public function privilege($id) {
-		if ($this->RMisPost()) {
-			$this->sanitizeInputPost();
-			$status = $this->user->privilegeUpdate($_POST);
-			$this->status($status);
-		}
-		$data = $this->user->privilege($id);
-		$userPosition = $this->user->userPosition($id)->o_position;
-		$userOption = $this->user->userPositionOption(false, $id);
-		$positionOption = $this->user->userPositionOption(true, $id);
-		$navOption = $this->user->navOption();
-		$this->view('user/privilege', [
-			'uid' => $id,
-			'data' => $data,
-			'userPosition' => $userPosition,
-			'navOption' => $navOption,
-			'userOption' => [
-				'Roles' => $positionOption,
-				'Users' => $userOption
-			],
-			'positionOption' => $positionOption
-		]);
-	}
-
 	public function profile($t = false, $id = false) {
 
 		switch ($t) {

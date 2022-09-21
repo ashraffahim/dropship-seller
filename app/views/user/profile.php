@@ -19,68 +19,6 @@ if (!$data['data']) {
 	exit;
 }
 
-if (isset($_GET['edit']) && $data['data']->id == $data['uid']) {
-
-	$removeProfileImage = '';
-	$dp = DATA . '/operator/' . $data['data']->id . '.jpg';
-	if(file_exists(DATADIR . DS . 'operator' . DS . $data['data']->id . '.jpg')) {
-		$image = '<label class="profile-image d-inline-block position-relative rounded-circle shadow"><img src="' . $dp . '" style="height: 100px; width: 100px"><input type="file" name="image" accept="image/*" id="profile-image-input" class="d-none" onchange="previewInputImage(this, \'.profile-image img\')"><i class="edit-image position-absolute fa fa-camera bg-theme-dark rounded-circle p-2" style="bottom: 0;right: 0"></i></label>';
-		$removeProfileImage = '<a href="#" data-toggle="shortcut-post-action" data-url="/user/profile/remove-profile-image" callback="makeToast(\'Profile Update\', \'trash-alt\', \'Profile picutre is removed. <b>Reload page</b>\')" class="btn btn-outline-danger">Remove profile image</a>';
-	} else {
-		$image = '<label class="d-inline-flex position-relative align-items-center justify-content-center bg-light text-muted rounded-circle shadow m-0 pb-2" style="height: 100px; width: 100px"><span class=" display-4">'
-		. substr($data['data']->first_name, 0, 1) . '</span><input type="file" name="image" accept="image/*" id="profile-image-input" class="d-none" onchange="previewInputImage(this, \'.profile-image img\')"><i class="edit-image position-absolute fa fa-camera bg-theme-dark rounded-circle p-2" style="bottom: 0;right: 0"></i></label>';
-	}
-
-	$name = '<div class="row">
-	<div class="col-md-6 form-group">
-	<label for="first_name">First Name</label>
-	<input type="text" name="first_name" id="first_name" value="' . $data['data']->first_name . '" class="form-control">
-	</div>
-	<div class="col-md-6 form-group">
-	<label for="last_name">Last Name</label>
-	<input type="text" name="last_name" value="'.$data['data']->last_name.'" class="form-control"></div>
-	</div>';
-	$position = $data['data']->position_first_name === null ? 'Independent' : $data['data']->position_first_name . ' ' . $data['data']->position_first_name;
-	$position = '';
-	$username = '<div class="row">
-	<div class="col-md-6 form-group">
-	<label for="username">Username</label>
-	<input type="text" name="username" id="username" value="' . $data['data']->username . '" class="form-control">
-	</div>';
-	$email = '<div class="col-md-6 form-group">
-	<label for="email">Email</label>
-	<input type="email" name="email" id="email" value="' . $data['data']->email . '" class="form-control">
-	</div></div>
-	<div class="row">
-	<div class="col-md-6">
-	' . $removeProfileImage . '
-	</div>
-	<div class="col-md-6 text-right">
-	<a href="/user/profile" class="btn btn-translucent" data-toggle="load-host" data-target="#content">Discard</a>
-	<button type="submit" class="btn btn-theme">Save changes</button>
-	</div></div>';
-
-} else {
-
-	$dp = DATA . '/operator/' . $data['data']->id . '.jpg';
-	if(file_exists(DATADIR . DS . 'operator' . DS . $data['data']->id . '.jpg')) {
-		$image = '<span class="profile-image d-inline-block rounded-circle shadow"><img src="' . $dp . '" style="height: 100px; width: 100px"></span>';
-	} else {
-		$image = '<span class="d-inline-flex align-items-center justify-content-center bg-theme text-light display-4 rounded-circle shadow m-0 pb-2" style="height: 100px; width: 100px">'
-		. substr($data['data']->first_name, 0, 1) . '</span>';
-	}
-
-	$name = '<div class="h3">' . $data['data']->first_name . ' ' . $data['data']->last_name . '
-	<span class="text-muted"> @' . $data['data']->username . '</span>
-	' . ($data['data']->id == $data['uid'] ? '<a href="/user/profile&edit" class="btn btn-icon text-muted" data-toggle="load-host" data-target="#content"><i class="fa fa-pen"></i></a>' : '') . '
-	</div>';
-	$position = $data['data']->position_first_name === null ? 'Independent' : $data['data']->position_first_name . ' ' . $data['data']->position_last_name;
-	$position = '<small class="text-muted"><i>' . $position . '</i></small>';
-	$username = '';
-	$email = '<div><a href="mailto:' . $data['data']->email . '">' . $data['data']->email . '</a></div>';
-
-}
-
 ?>
 <div class="row mb-4">
 	<div class="col-lg-8">
@@ -91,14 +29,26 @@ if (isset($_GET['edit']) && $data['data']->id == $data['uid']) {
 					<div class="row">
 
 						<div class="col-md-3">
-							<?php echo $image; ?>
+							<?php
+							$dp = DATA . '/seller/' . $data['data']->id . '.jpg';
+							if(file_exists(DATADIR . DS . 'operator' . DS . $data['data']->id . '.jpg')) {
+								echo '<span class="profile-image d-inline-block rounded-circle shadow"><img src="' . $dp . '" style="height: 100px; width: 100px"></span>';
+							} else {
+								echo '<span class="d-inline-flex align-items-center justify-content-center bg-theme text-light display-4 rounded-circle shadow m-0 pb-2" style="height: 100px; width: 100px">'
+								. substr($data['data']->s_first_name, 0, 1) . '</span>';
+							}
+							?>
 						</div>
 
 						<div class="col-md-9">
-							<?php echo $name; ?>
-							<?php echo $position; ?>
-							<?php echo $username; ?>
-							<?php echo $email; ?>
+							<div class="h3">
+								<?php
+								echo $data['data']->s_first_name . ' ' . $data['data']->s_last_name;
+								?>
+								<span class="text-muted">#<?php echo $data['data']->id; ?></span>
+								<a href="/user/profile&edit" class="btn btn-icon text-muted" data-toggle="load-host" data-target="#content"><i class="fa fa-pen"></i></a>
+							</div>
+							<div><a href="mailto:<?php echo $data['data']->s_email; ?>"><?php echo $data['data']->s_email; ?></a></div>
 						</div>
 
 					</div>
